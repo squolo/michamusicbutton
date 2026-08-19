@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoundCloud Player Toggle</title>
+    
+    <!-- Load the official SoundCloud Widget API Script -->
+    <script src="https://w.soundcloud.com/player/api.js"></script>
+
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: transparent; /* Blends perfectly into Google Sites */
+            overflow: hidden;
+        }
+        .music-btn {
+            background-color: #ff5500; /* SoundCloud Orange, customize as you like */
+            color: #ffffff;
+            font-family: sans-serif;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+        }
+        .music-btn:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- The button the user clicks -->
+    <button class="music-btn" id="triggerBtn" onclick="activateMusic()">‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ </button>
+
+    <!-- The actual SoundCloud player. It is hidden (width/height 1px) so users only see your button -->
+    <iframe id="sc-player" 
+            width="1" 
+            height="1" 
+            scrolling="no" 
+            frameborder="no" 
+            allow="autoplay" 
+            src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2373085046&color=%23050505&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true">
+    </iframe>
+
+    <script>
+        function activateMusic() {
+            // Target the hidden SoundCloud iframe
+            var iframeElement = document.getElementById('sc-player');
+            // Initialise the SoundCloud API widget connection
+            var widget = SC.Widget(iframeElement);
+            var button = document.getElementById('triggerBtn');
+
+            // Force play unmuted audio via the API
+            widget.play();
+
+            // Cosmetic: change the button text once clicked
+            button.textContent = "Playing...";
+            button.style.opacity = "0.5";
+            button.style.pointerEvents = "none";
+        }
+    </script>
+
+</body>
+</html>
